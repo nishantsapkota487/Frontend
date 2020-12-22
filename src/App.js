@@ -1,13 +1,13 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import NavbarTop from './components/navbar';
 
 function App() {
   return (
     <div className="App">
-      This is the second commit
+      <NavbarTop />
+      
     </div>
   );
 }
-
 export default App;

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css?family=Great+Vibes');
+.positioning{
+  display: flex;
+  justify-content: flex-end;
+}
+
+.coloring{
+ color: red !important;
+ font-family: 'Great Vibes', cursive;
+ font-size: 40px;
+ display: inline-block;
+}
+
+.size{
+  height:60px;
+}
+
+.login{
+  position: absolute;
+  left: 1100px;
+  font-size: 20px;
+  color: white !important;
+  top: 16px;
+}
+
+.register{
+  position: absolute;
+  left: 950px;
+  font-size: 20px;
+  color: white !important;
+  top: 16px;
+
+}
+
+.register:hover{
+  color: black !important;
+}
+
+.login:hover{
+  color: black !important;
+}
