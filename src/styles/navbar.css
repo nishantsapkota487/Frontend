@@ -13,6 +13,7 @@
 
 .size{
   height:60px;
+
 }
 
 .login{
@@ -39,3 +40,5 @@
 .login:hover{
   color: black !important;
 }
+
+/* className = 'w-50' style={{position:'absolute', left:'350px', marginTop:'30px'}} */

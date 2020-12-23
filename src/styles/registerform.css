@@ -1,0 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.stylingText{
+  font-family: 'Pacifico', 'cursive';
+  font-size: 20px;
+}
+.email{
+  position: absolute;
+  left: 400px;
+}
