@@ -4,11 +4,11 @@ import LoginFoot from '../components/loginfooter';
 import LoginForm from '../components/loginform';
 import {loginfooter} from '../styles/loginFooter.css';
 
-const homepageLogin = () =>{
+const homepageLogin = (props) =>{
   return(
     <React.Fragment>
       <Navbar />
-      <LoginForm />
+      <LoginForm history={props.history} />
       <LoginFoot />
     </React.Fragment>
   )

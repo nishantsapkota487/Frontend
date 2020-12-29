@@ -12,7 +12,7 @@ import { Button,
         Col } from 'reactstrap';
 import api from '../api/axios';
 
-const FormsTwo = () => {
+const FormsTwo = (props) => {
   const [ email, setEmail ] = useState('');
   const [ password, setPassword ] = useState('');
   const [ visible, setVisible ] = useState(false);
@@ -50,7 +50,6 @@ const FormsTwo = () => {
       password:password
     })
     .then(res=>{
-      console.log(res.data.message);
       if (res.data.message === 'User does not exist') {
         setExist(false);
         setVisible(true);
@@ -66,6 +65,11 @@ const FormsTwo = () => {
           setVisible(false);
           setdoDisable(false)
         }, 2000)
+        return;
+      }else{
+        const token = res.data.message;
+        localStorage.setItem('token', token);
+        props.history.push('/posts');
       }
     })
     .catch(err=>{
