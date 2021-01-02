@@ -1,0 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+.textarea{
+  resize: none;
+  height:120px!important;
+}
+.blogtitle{
+  resize: none;
+  height:60px!important;
+}
+
+.style{
+  font-family: 'Pacifico', 'cursive';
+  font-size: 20px;
+}
