@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Card,
+        Modal,
+        ModalHeader,
+        ModalFooter,
+        ModalBody,
         Button,
         Alert,
         Form,
@@ -8,8 +12,10 @@ import { Card,
         Input,
         CardTitle,
         CardText,
+        CardBody,
         Row,
         Col } from 'reactstrap';
+
 import { RemoveScrollBar } from 'react-remove-scroll-bar';
 import { position, button } from '../styles/postCard.css';
 import { styles } from '../styles/postForm.css';
@@ -20,7 +26,6 @@ import api from '../api/axios';
 
 
 const Post = (props) =>{
-
   const [ posts, setPosts ] = useState([]);
   const [ user, setUser ] = useState('');
   const [ incomplete, setIncomplete ] = useState(false);
@@ -29,6 +34,11 @@ const Post = (props) =>{
   const [ open, setOpen ] = useState(false);
   const [ loading, setLoading ] = useState(false);
   const [ successful, setSuccessful ] = useState(false);
+  const [ modal, setModal ] = useState(false);
+  const [ comments, setComments ] = useState([]);
+  const [ commentTitle, setCommentTitle ] = useState('');
+  const [ usercomment, setUserComment ] = useState('');
+  const [ postID, setPostID ] = useState(null);
 
   useEffect(() =>{
     const token = localStorage.getItem('token');
@@ -53,18 +63,18 @@ const Post = (props) =>{
     setContent(event.target.value);
   }
 
+  const changeComment = (event) =>{
+    setUserComment(event.target.value)
+  }
+
   const dislikeButton = (id) =>{
     const token = localStorage.getItem('token');
     fetch(`http://localhost:5000/api/blogs/dislike/${id}`, {
       method:'PATCH',
       headers: {
         auth_token:token,
-
       }
     })
-    .then(res => res.json())
-    .then(data=>console.log(data))
-    .catch(err=>console.log(err))
     let newPosts = [...posts];
     let postToLike, postIndex;
     for (var i = 0; i < posts.length; i++) {
@@ -104,6 +114,46 @@ const Post = (props) =>{
     setPosts(newPosts);
   }
 
+  const commentButton = (id) => {
+    setComments([]);
+    setModal(!modal);
+    setCommentTitle('');
+    setPostID(null);
+    const token = localStorage.getItem('token');
+    let comments;
+    api.get(`/api/blogs/getcomment/${id}`, {headers:{auth_token:token}})
+    .then(res=>{
+      comments = res.data.message;
+      setComments(comments);
+      for (var i = 0; i < posts.length; i++) {
+        setPostID(posts[i]._id);
+        if (posts[i]._id === id) {
+          setCommentTitle(posts[i].title)
+          break;
+        }
+      }
+    })
+    .catch(err=>{
+      console.log(err);
+    })
+  }
+
+  const hitComment = (id) => {
+    const token = localStorage.getItem('token');
+    const commentArray = [...comments];
+    let postsCopy = [...posts];
+    commentArray.push(usercomment);
+    setComments(commentArray);
+    for (var i = 0; i < posts.length; i++) {
+      if (posts[i]._id === id ) {
+        let indexPost = posts.indexOf(posts[i]);
+        postsCopy[indexPost].comment = commentArray;
+        setPosts(postsCopy);
+      }
+    }
+    api.post(`/api/blogs/comment/${id}`,{comment:usercomment}, {headers:{auth_token:token}})
+  }
+
   const submitForm = (event) =>{
     event.preventDefault();
     setIncomplete(false);
@@ -139,6 +189,18 @@ const Post = (props) =>{
       })
     }
   }
+
+  const blogComments = comments.map(comment=>{
+    return(
+      <Card>
+        <CardBody>
+          { comment }
+        </CardBody>
+      </Card>
+    )
+  })
+
+
   const blogs = posts.map(post=>{
     return(
       <Row>
@@ -151,7 +213,7 @@ const Post = (props) =>{
             <Button onClick = { () => likeButton(post._id) } color = "success" size="md" style ={{margin:'20px'}}>
               <ThumbUpIcon /> { post.likes } Likes
             </Button>
-            <Button  size = "md" style = {{margin:'20px'}}>
+            <Button onClick = { () => commentButton(post._id) } size = "md" style = {{margin:'20px'}}>
               < CommentIcon /> { post.comment.length } Coments
             </Button>
             <Button onClick = { () => dislikeButton(post._id) } color="danger" size = "md" style = {{margin:'20px'}}>
@@ -182,6 +244,21 @@ const Post = (props) =>{
       :
       null
     }
+    <Modal isOpen = {modal} toggle={() => setModal(!modal)}>
+      <ModalHeader> Comments for { commentTitle } </ModalHeader>
+      <ModalBody>
+        { blogComments }
+      </ModalBody>
+      <ModalFooter>
+       <Input
+          type = 'text'
+          name = 'text'
+          placeholder = 'Enter you comment.'
+          onChange = { changeComment }
+        />
+        <Button onClick = {() => hitComment(postID) } size = 'md' color = "success">PostComment</Button>
+      </ModalFooter>
+    </Modal>
       <Form>
         <FormGroup>
           <Label for = "blogTitle" className="style">Blog Title </Label>
