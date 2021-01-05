@@ -7,7 +7,6 @@ const homepage = (props) => {
     <React.Fragment>
       <Navbar />
       <Form hi="nishant" />
-      <Foot />
     </React.Fragment>
   )
 }

@@ -217,7 +217,7 @@ const Post = (props) =>{
               <ThumbUpIcon /> { post.likes } Likes
             </Button>
             <Button onClick = { () => commentButton(post._id) } size = "md" style = {{margin:'20px'}}>
-              < CommentIcon /> { post.comment.length } Coments
+              < CommentIcon /> { post.comment.length } Comments
             </Button>
             <Button onClick = { () => dislikeButton(post._id) } color="danger" size = "md" style = {{margin:'20px'}}>
               <ThumbDownIcon /> { post.dislikes } Dislikes

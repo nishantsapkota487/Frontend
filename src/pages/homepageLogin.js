@@ -9,7 +9,6 @@ const homepageLogin = (props) =>{
     <React.Fragment>
       <Navbar />
       <LoginForm history={props.history} />
-      <LoginFoot />
     </React.Fragment>
   )
 }
