@@ -69,7 +69,7 @@ const Post = (props) =>{
 
   const dislikeButton = (id) =>{
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:5000/api/blogs/dislike/${id}`, {
+    fetch(`https://blogapp-app-backend.herokuapp.com/api/blogs/dislike/${id}`, {
       method:'PATCH',
       headers: {
         auth_token:token,
@@ -91,7 +91,7 @@ const Post = (props) =>{
 
   const likeButton = (id) =>{
     const token = localStorage.getItem('token');
-    fetch(`http://localhost:5000/api/blogs/like/${id}`, {
+    fetch(`https://blogapp-app-backend.herokuapp.com/api/blogs/like/${id}`, {
       method:'PATCH',
       headers: {
         auth_token:token,
