@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import {coloring, size, elements} from '../styles/navbar.css';
+import {coloring, size, elements, posts} from '../styles/navbar.css';
 import { Link } from 'react-router-dom';
 import {
   Collapse,
@@ -18,6 +18,10 @@ const NavbarTop = (props) => {
 
   const toggle = () => setIsOpen(!isOpen);
 
+  const logout = (props) =>{
+    localStorage.removeItem('token');
+  }
+
   return (
     <div>
       <Navbar color="dark" light expand="md">
@@ -26,10 +30,13 @@ const NavbarTop = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="positioning mr-auto" navbar>
             <NavItem>
-              <Link className = 'login' to="/login">Logout</Link>
+              <Link onClick = { logout } className = 'login' to="/login">Logout</Link>
             </NavItem>
             <NavItem>
-              <Link className = 'register' to="/register">MyPosts</Link>
+              <Link className = 'register' to="/myposts">MyPosts</Link>
+            </NavItem>
+            <NavItem>
+              <Link className = 'posts' to = "/posts">Posts</Link>
             </NavItem>
           </Nav>
         </Collapse>

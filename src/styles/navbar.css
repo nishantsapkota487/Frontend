@@ -33,11 +33,23 @@
 
 }
 
+.posts{
+  position: absolute;
+  left: 800px;
+  font-size: 20px;
+  color: white !important;
+  top: 16px;
+}
+
 .register:hover{
   color: black !important;
 }
 
 .login:hover{
+  color: black !important;
+}
+
+.posts:hover{
   color: black !important;
 }
 

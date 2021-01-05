@@ -142,6 +142,9 @@ const Post = (props) =>{
     const token = localStorage.getItem('token');
     const commentArray = [...comments];
     let postsCopy = [...posts];
+    if (usercomment === '') {
+      return;
+    }
     commentArray.push(usercomment);
     setComments(commentArray);
     for (var i = 0; i < posts.length; i++) {

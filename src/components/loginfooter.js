@@ -8,7 +8,7 @@ const Loginfooter = () => {
       <div className = "loginfooter">
         <CopyrightIcon className = "icon"></CopyrightIcon>
         <div className = 'text'>
-          2020.BlogApp. Nishant Sapkota Production.
+          2020.BlogApp. Nishant Sapkota Production.(Anonymous version)
         </div>
       </div>
     </React.Fragment>

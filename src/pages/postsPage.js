@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import api from '../api/axios';
 import Posts from '../components/posts';
 import LoginNavbar from '../components/loginNavbar';
-import Footer from '../components/footer';
-import {RemoveScrollBar} from 'react-remove-scroll-bar';
+
 
 const PostPage = (props) =>{
   const [ user, setUser ] = useState('');
@@ -20,9 +19,8 @@ const PostPage = (props) =>{
   })
   return(
     <React.Fragment>
-      <LoginNavbar user = { user }/>
+      <LoginNavbar user = { user } history = { props.history }/>
       <Posts history = { props.history } />
-      <Footer />
     </React.Fragment>
   )
 }
